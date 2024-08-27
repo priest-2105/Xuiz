@@ -3830,14 +3830,33 @@ const quizData = [{
   }]
 
 
+const questionEl = document.getElementById('question_h')
+
+const a_label = document.getElementById('a_label');
+const b_label = document.getElementById('b_label');
+const c_label = document.getElementById('c_label');
+const d_label = document.getElementById('d_label');
 
 
+ let currentQuiz = 0;
 
 
- let currentQuestion = 0;
+ loadQuiz();
 
- loadQuiz
 
  function loadQuiz() {
-    
+
+    const currentQuizData = quizData[currentQuestion];
+
+    questionEl.innerHTML = currentQuizData.
+    question;
+
+    a_label.innerHTML = currentQuizData.a;
+    b_label.innerHTML = currentQuizData.b;
+    c_label.innerHTML = currentQuizData.c;
+    d_label.innerHTML = currentQuizData.d;
+
+    currentQuestion++;
+
+
  }
