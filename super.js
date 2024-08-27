@@ -3836,6 +3836,7 @@ const a_label = document.getElementById('a_label');
 const b_label = document.getElementById('b_label');
 const c_label = document.getElementById('c_label');
 const d_label = document.getElementById('d_label');
+const submit_btn = document.getElementById('submitBtn');
 
 
  let currentQuiz = 0;
@@ -3846,17 +3847,29 @@ const d_label = document.getElementById('d_label');
 
  function loadQuiz() {
 
-    const currentQuizData = quizData[currentQuestion];
+    const currentQuizData = quizData[currentQuiz];
 
     questionEl.innerHTML = currentQuizData.
     question;
 
-    a_label.innerHTML = currentQuizData.a;
-    b_label.innerHTML = currentQuizData.b;
-    c_label.innerHTML = currentQuizData.c;
-    d_label.innerHTML = currentQuizData.d;
+    a_label.innerHTML = currentQuizData.A;
+    b_label.innerHTML = currentQuizData.B;
+    c_label.innerHTML = currentQuizData.C;
+    d_label.innerHTML = currentQuizData.D;
 
-    currentQuestion++;
-
+    currentQuiz++;
 
  }
+
+
+
+ submit_btn.addEventListener('click', () =>{
+        currentQuiz++
+
+        if(currentQuiz >= quizData.length){
+             loadQuiz();
+        }else{
+            alert('You Finished')
+        }
+        
+ })
