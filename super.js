@@ -3837,12 +3837,14 @@ const b_label = document.getElementById('b_label');
 const c_label = document.getElementById('c_label');
 const d_label = document.getElementById('d_label');
 const submit_btn = document.getElementById('submitBtn');
+const answerEl = document.querySelectorAll('.answer');
+    
 const answer = undefined;
 
 
 
  let currentQuiz = 0;
-
+let score = 0;
 
  loadQuiz();
 
@@ -3860,32 +3862,49 @@ const answer = undefined;
     d_label.innerHTML = currentQuizData.D;
 
     currentQuiz++;
+    deselectAnswers();
 
  }
 
 
  function getSelected(){
-    const answerEl = document.querySelectorAll('.answer');
-    
-    answers.forEach((answerEl) => {
+    let answer = undefined;
+
+    answerEl.forEach((answerEl) => {
         if (answerEl.checked){
-            answer = answerEl.id
+          answer = answerEl.id
         }
     });
+    return answer;
  }
 
 
+ function deselectAnswers(){
+
+    answerEl.forEach((answerEl) =>{
+        answerEl.checked = false;
+    }) 
+
+ }
+
 
  submit_btn.addEventListener('click', () =>{
-        currentQuiz++
 
-        getSelected();
+    // checks to see th e answer 
+    const answer = getSelected()
 
-        // if(currentQuiz < quizData.length){
-        //      loadQuiz();
-        // }
-        // else{
-        //     alert('You Finished')
-        // }
-        
+    
+    if (answer){
+        if(answer === quizData[currentQuiz].answer){
+            score++
+        }
+        currentQuiz++;   
+        if(currentQuiz < quizData.length){
+             loadQuiz();
+        }
+        else{
+            alert('You Finished')
+        }
+  }
+
  })
