@@ -3830,81 +3830,61 @@ const quizData = [{
   }]
 
 
-const questionEl = document.getElementById('question_h')
-
+const questionEl = document.getElementById('question_h');
 const a_label = document.getElementById('a_label');
 const b_label = document.getElementById('b_label');
 const c_label = document.getElementById('c_label');
 const d_label = document.getElementById('d_label');
 const submit_btn = document.getElementById('submitBtn');
-const answerEl = document.querySelectorAll('.answer');
-    
-const answer = undefined;
+const answerEls = document.querySelectorAll('.answer');
+const quiz = document.querySelector('.quiz-container');
 
-
-
- let currentQuiz = 0;
+let currentQuiz = 0;
 let score = 0;
 
- loadQuiz();
+loadQuiz();
 
-
- function loadQuiz() {
-
+function loadQuiz() {
+    deselectAnswers();
     const currentQuizData = quizData[currentQuiz];
-
-    questionEl.innerHTML = currentQuizData.
-    question;
-
+    questionEl.innerHTML = currentQuizData.question;
     a_label.innerHTML = currentQuizData.A;
     b_label.innerHTML = currentQuizData.B;
     c_label.innerHTML = currentQuizData.C;
     d_label.innerHTML = currentQuizData.D;
+}
 
-    currentQuiz++;
-    deselectAnswers();
-
- }
-
-
- function getSelected(){
-    let answer = undefined;
-
-    answerEl.forEach((answerEl) => {
-        if (answerEl.checked){
-          answer = answerEl.id
+function getSelected() {
+    let selectedAnswer = undefined;
+    answerEls.forEach((answerEl) => {
+        if (answerEl.checked) {
+            selectedAnswer = answerEl.id.toUpperCase(); // Ensures match with "A", "B", "C", "D"
         }
     });
-    return answer;
- }
+    return selectedAnswer;
+}
 
-
- function deselectAnswers(){
-
-    answerEl.forEach((answerEl) =>{
+function deselectAnswers() {
+    answerEls.forEach((answerEl) => {
         answerEl.checked = false;
-    }) 
+    });
+}
 
- }
+submit_btn.addEventListener('click', () => {
+    const selectedAnswer = getSelected();
 
-
- submit_btn.addEventListener('click', () =>{
-
-    // checks to see th e answer 
-    const answer = getSelected()
-
-    
-    if (answer){
-        if(answer === quizData[currentQuiz].answer){
-            score++
+    if (selectedAnswer) {
+        if (selectedAnswer === quizData[currentQuiz].answer) {
+            score++;
         }
-        currentQuiz++;   
-        if(currentQuiz < quizData.length){
-             loadQuiz();
+        currentQuiz++;
+        if (currentQuiz < quizData.length) {
+            loadQuiz();
+        } else {
+            quiz.innerHTML = `<h2>You answered correctly ${score}/${quizData.length} questions.</h2>`;
+            submit_btn.innerHTML = 'Finished (Reload To Retake)';
+            submit_btn.disabled = true;
+            submit_btn.style.pointerEvents = 'none';
         }
-        else{
-            alert('You Finished')
-        }
-  }
-
- })
+    }
+});

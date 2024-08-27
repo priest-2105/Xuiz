@@ -40,5 +40,10 @@ button{
     color: #fff;
     border: none;
 }button:hover{
+    background-color: #642081;
+}button:focus{
+    outline: none;
     background-color: #2f0e3d;
 }
+
+
