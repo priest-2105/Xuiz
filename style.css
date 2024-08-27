@@ -28,7 +28,8 @@ body{
 }ul li{
     font-size: 1.1rem;
     margin: 1rem 0;
-}
+    cursor: pointer;
+}ul label{cursor: pointer;}
 button{
     background-color: #8e44ad;
     display: block;

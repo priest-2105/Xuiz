@@ -3837,6 +3837,8 @@ const b_label = document.getElementById('b_label');
 const c_label = document.getElementById('c_label');
 const d_label = document.getElementById('d_label');
 const submit_btn = document.getElementById('submitBtn');
+const answer = undefined;
+
 
 
  let currentQuiz = 0;
@@ -3862,14 +3864,28 @@ const submit_btn = document.getElementById('submitBtn');
  }
 
 
+ function getSelected(){
+    const answerEl = document.querySelectorAll('.answer');
+    
+    answers.forEach((answerEl) => {
+        if (answerEl.checked){
+            answer = answerEl.id
+        }
+    });
+ }
+
+
 
  submit_btn.addEventListener('click', () =>{
         currentQuiz++
 
-        if(currentQuiz >= quizData.length){
-             loadQuiz();
-        }else{
-            alert('You Finished')
-        }
+        getSelected();
+
+        // if(currentQuiz < quizData.length){
+        //      loadQuiz();
+        // }
+        // else{
+        //     alert('You Finished')
+        // }
         
  })
